@@ -1,6 +1,4 @@
-/*
-Controller handling routes starting with /books/
-*/
+const BookService = new (require('../models/BookService'))()
 
 module.exports = class BooksController {
   /**
@@ -9,9 +7,14 @@ module.exports = class BooksController {
    * @param {Object} req - HTTP request
    * @param {Object} res - HTTP response
    */
-  all = (req, res) => {
-    const args = {}
-    res.render("index", args)
+  async all(req, res) {
+    try {
+      const args = {}
+      const allBooks = await BookService.allBooks();
+      return res.json(allBooks)
+    } catch (err) {
+      console.log(err.message)
+    }
   }
 
   /**

@@ -10,13 +10,13 @@ module.exports = (sequelize) => {
       title: {
         type: Sequelize.STRING,
         validate: {
-          notNull: true,
+          notNull: false,
         },
       },
       author: {
         type: Sequelize.STRING,
         validate: {
-          notNull: true,
+          notNull: false,
         },
       },
       genre: {
