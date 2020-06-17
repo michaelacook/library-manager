@@ -12,11 +12,12 @@ module.exports = class BookService {
    */  
   async allBooks() {
     try {
+      await Book.sync()
       const results = await Book.findAndCountAll()
-      console.log(results)
       return results
     } catch (err) {
       console.error(err.message)
+      return false
     }
   }
 }
