@@ -7,3 +7,19 @@ block content
     h1 Books
     p 
         a(class="button" href="/books/new") Create New Book
+    
+    table 
+        thead 
+            tr 
+                th Title 
+                th Author
+                th Genre 
+                th Year 
+        tbody
+            each val in rows
+                tr 
+                    td
+                        a(href='/books/' + val.id target='_blank')= val.title
+                    td= val.author 
+                    td= val.genre 
+                    td= val.year 

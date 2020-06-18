@@ -1,4 +1,4 @@
-const BookService = new (require('../models/BookService'))()
+const BookService = new (require("../models/BookService"))()
 
 module.exports = class BooksController {
   /**
@@ -7,14 +7,15 @@ module.exports = class BooksController {
    * @param {Object} req - HTTP request
    * @param {Object} res - HTTP response
    */
-  async all(req, res) {
-    try {
-      const args = {}
-      const allBooks = await BookService.allBooks();
-      return res.json(allBooks)
-    } catch (err) {
-      console.log(err.message)
+  async all(req, res, next) {
+    const results = await BookService.allBooks()
+    if (!results) {
+      const err = new Error("No book listings")
+      return next(err)
     }
+    const { count, rows } = results
+    const args = { count, rows }
+    res.render("index", args)
   }
 
   /**
@@ -37,9 +38,16 @@ module.exports = class BooksController {
    * @param {Object} req
    * @param {Object} res
    */
-  book = (req, res) => {
+  async book(req, res, next) {
     const id = req.params.id
-    const args = {}
+    const book = await BookService.findBook(id)
+    console.log(book)
+    if (!book) {
+      const err = new Error("Invalid book ID passed")
+      return next(err)
+    }
+    const args = { book }
+    res.render("update-book", args)
   }
 
   /**
