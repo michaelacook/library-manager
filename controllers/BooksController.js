@@ -39,15 +39,21 @@ module.exports = class BooksController {
    * @param {Object} res
    */
   async book(req, res, next) {
-    const id = req.params.id
-    const book = await BookService.findBook(id)
-    console.log(book)
-    if (!book) {
-      const err = new Error("Invalid book ID passed")
-      return next(err)
+    if (req.method === 'GET') {
+      const id = req.params.id
+      const book = await BookService.findBook(id)
+      console.log(book)
+      if (!book) {
+        const err = new Error("Invalid book ID passed")
+        return next(err)
+      }
+      const args = { book }
+      res.render("update-book", args)
+    } else if (req.method === 'POST') {
+      console.log("HELLOOOOOOO")
+      // this is temporary. handle updating of book
+      res.redirect('/')
     }
-    const args = { book }
-    res.render("update-book", args)
   }
 
   /**
