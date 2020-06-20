@@ -98,3 +98,26 @@ input[type="text"] {
 .error {
   color: rgb(236, 15, 15);
 }
+
+.alertbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  background-color: #299775;
+  color: white;
+  padding: 18px 10px;
+}
+
+.alertbox p,
+button {
+  padding-left: 6px;
+  margin: 0;
+}
+
+.alertbox button {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  font-weight: bold;
+}

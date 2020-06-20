@@ -4,22 +4,26 @@ block title
     title Books 
 
 block content 
+
+    include alertbox.pug
+
     h1 Books
     p 
         a(class="button" href="/books/new") Create New Book
     
-    table 
-        thead 
-            tr 
-                th Title 
-                th Author
-                th Genre 
-                th Year 
-        tbody
-            each val in rows
+    if rows
+        table 
+            thead 
                 tr 
-                    td
-                        a(href='/books/' + val.id target='_blank')= val.title
-                    td= val.author 
-                    td= val.genre 
-                    td= val.year 
+                    th Title 
+                    th Author
+                    th Genre 
+                    th Year 
+            tbody
+                each val in rows
+                    tr 
+                        td
+                            a(href='/books/' + val.id)= val.title
+                        td= val.author 
+                        td= val.genre 
+                        td= val.year 

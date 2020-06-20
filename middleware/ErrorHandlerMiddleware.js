@@ -1,5 +1,6 @@
 module.exports = () => {
   return function (err, req, res, next) {
-    res.render("error")
+    const args = { error: err.message }
+    res.render("error", args)
   }
 }

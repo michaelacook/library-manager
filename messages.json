@@ -1,0 +1,12 @@
+{
+  "error": {
+    "missing_data": "Oops! Please fill out all form fields.",
+    "general_error": "Something went wrong. Try again later.",
+    "does_not_exist": "That book does not exist."
+  },
+  "success": {
+    "book_added": "Success! Your book was saved.",
+    "book_updated": "Success! Your book was updated.",
+    "book_deleted": "Your book was successfully deleted."
+  }
+}

@@ -8,17 +8,16 @@ const { Book } = require("./index.js")
 module.exports = class BookService {
   /**
    * Get all book entries in the database
+   * @return {Promise}
    */
-
   async allBooks() {
-    try {
-      await Book.sync()
-      const results = await Book.findAndCountAll({
-        order: [["title", "ASC"]],
-      })
+    await Book.sync()
+    const results = await Book.findAndCountAll({
+      order: [["title", "ASC"]],
+    })
+    if (results) {
       return results
-    } catch (err) {
-      console.error(err.message)
+    } else {
       return false
     }
   }
@@ -26,18 +25,79 @@ module.exports = class BookService {
   /**
    * Get an individual book by id
    * @param {Number} id - database primary key
+   * @return {Promise}
    */
   async findBook(id) {
-    try {
-      await Book.sync()
-      const result = await Book.findByPk(id)
-      if (!result) {
-        return false
-      }
-      return result
-    } catch (err) {
-      console.error(err.message)
+    await Book.sync()
+    const result = await Book.findByPk(id)
+    if (!result) {
       return false
+    }
+    return result
+  }
+
+  /**
+   * Add a new book row to the database
+   * @param {String} title - book title
+   * @param {String} author - book author
+   * @param {String} genre - book genre
+   * @param  {String} year - year published
+   * @return {Promise}
+   */
+  async addBook(title, author, genre, year) {
+    await Book.sync()
+    await Book.create({
+      title,
+      author,
+      genre,
+      year,
+    }).catch((err) => {
+      return Promise.reject()
+    })
+  }
+
+  /**
+   * Edit a book record
+   * @param {String} title - book title
+   * @param {String} author - book author
+   * @param {String} genre - book genre
+   * @param {String} year - year published
+   * @param {Number} id - record primary key
+   * @return {Promise}
+   */
+  async updateBook(title, author, genre, year, id) {
+    await Book.sync()
+    const book = await this.findBook(id)
+    if (book) {
+      await book
+        .update({
+          title,
+          author,
+          genre,
+          year,
+        })
+        .catch((err) => {
+          return Promise.reject()
+        })
+    } else {
+      return Promise.reject(false)
+    }
+  }
+
+  /**
+   * Delete a book record
+   * @param {Number} id - record primary key
+   * @return {Promise}
+   */
+  async deleteBook(id) {
+    await Book.sync()
+    const book = await Book.findByPk(id)
+    if (book) {
+      await book.destroy().catch((err) => {
+        return Promise.reject()
+      })
+    } else {
+      return Promise.reject()
     }
   }
 }

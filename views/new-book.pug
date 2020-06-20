@@ -4,9 +4,12 @@ block title
     title New Book
 
 block content 
+
+    include alertbox.pug
+
     h1 New Book
     
-    form
+    form(method="post" action="/books/new")
         p
             label(for='title') Title
             input#title(name='title' type='text')
