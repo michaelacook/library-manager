@@ -1,10 +1,16 @@
+// require base controller
+const Controller = require("./Controller.js")
 // encapsulates the logic of interacting with the database
 const BookService = new (require("../models/BookService"))()
 // maps query strings to error and success messages to be sent to views
 const messages = require("../messages.json")
 const { Book } = require("../models/index.js")
 
-module.exports = class BooksController {
+module.exports = class BooksController extends Controller {
+  constructor() {
+    super()
+  }
+
   /**
    * Redirect to the /books route
    * for / route
@@ -71,7 +77,7 @@ module.exports = class BooksController {
   }
 
   /**
-   * Render book details view on GET 
+   * Render book details view on GET
    * Update book details on POST
    * for /books/:id route
    * @param {Object} req
@@ -88,7 +94,7 @@ module.exports = class BooksController {
           args.book = book
           res.render("update-book", args)
         } else {
-          res.redirect('/books?error=does_not_exist')
+          res.redirect("/books?error=does_not_exist")
         }
       } else if (req.method === "POST") {
         const { title, author, genre, year } = req.body
@@ -133,25 +139,5 @@ module.exports = class BooksController {
       console.log(err)
       next(err)
     }
-  }
-
-  /**
-   * Create an args object to be sent to the view
-   * args is used to contain any dynamic data to be used in templates
-   * @param {Object} req - HTTP request object
-   * @return {Object} args - args to be sent to the view
-   * Since the app sends dynamic error and success flash messages based on query string,
-   * createArgs adds any messages from the url query string to the object
-   * before returning it
-   * If there are no success or error messages, returns an empty args object
-   */
-  createArgs = (req) => {
-    const args = {}
-    if (req.query.error) {
-      args.message = messages.error[req.query.error]
-    } else if (req.query.success) {
-      args.message = messages.success[req.query.success]
-    }
-    return args
   }
 }

@@ -2,7 +2,8 @@
   "error": {
     "missing_data": "Oops! Please fill out all form fields.",
     "general_error": "Something went wrong. Try again later.",
-    "does_not_exist": "That book does not exist."
+    "does_not_exist": "That book does not exist.",
+    "no_results": "No results."
   },
   "success": {
     "book_added": "Success! Your book was saved.",

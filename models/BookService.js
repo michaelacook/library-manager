@@ -4,6 +4,7 @@ and returning data from the Books model
 */
 
 const { Book } = require("./index.js")
+const { Op } = require("./index.js").Sequelize
 
 module.exports = class BookService {
   /**
@@ -99,5 +100,29 @@ module.exports = class BookService {
     } else {
       return Promise.reject()
     }
+  }
+
+  /**
+   * Search database for records at least partially matching a query
+   * @param {String} query - search term
+   * @return {Object} results
+   * @return {Boolean} false on fail
+   */
+  async search(query) {
+    await Book.sync()
+    const results = await Book.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${query}%` } },
+          { author: { [Op.like]: `%${query}%` } },
+          { genre: { [Op.like]: `%${query}%` } },
+          { year: { [Op.like]: `%${query}%` } },
+        ],
+      },
+    })
+    if (!results) {
+      return false
+    }
+    return results
   }
 }

@@ -8,9 +8,10 @@ block content
         h1 Books
         .top
             a(class="button" href="/books/new") Create New Book
-            form(method="post" action="/search")
+            form(method="get" action="/search")
                 input(
                     type="text"
+                    name="search"
                     placeholder="Author, title, genre, year"
                 )
                 input(
