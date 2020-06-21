@@ -55,7 +55,7 @@ module.exports = class BooksController {
         if (!title || !year) {
           return res.redirect("/books/new?error=missing_data")
         }
-        let url = "/books/new?"
+        let url = "/books/?"
         await BookService.addBook(title, author, genre, year)
           .then(() => {
             url += "success=book_added"

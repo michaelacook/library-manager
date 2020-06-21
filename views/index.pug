@@ -4,26 +4,35 @@ block title
     title Books 
 
 block content 
+    .book-list
+        h1 Books
+        .top
+            a(class="button" href="/books/new") Create New Book
+            form(method="post" action="/search")
+                input(
+                    type="text"
+                    placeholder="Author, title, genre, year"
+                )
+                input(
+                    class="button"
+                    type="submit"
+                    value="Search"
+                )
 
-    include alertbox.pug
-
-    h1 Books
-    p 
-        a(class="button" href="/books/new") Create New Book
-    
-    if rows
-        table 
-            thead 
-                tr 
-                    th Title 
-                    th Author
-                    th Genre 
-                    th Year 
-            tbody
-                each val in rows
+        
+        if rows
+            table(id="books-table") 
+                thead 
                     tr 
-                        td
-                            a(href='/books/' + val.id)= val.title
-                        td= val.author 
-                        td= val.genre 
-                        td= val.year 
+                        th Title 
+                        th Author
+                        th Genre 
+                        th Year 
+                tbody
+                    each val in rows
+                        tr 
+                            td
+                                a(href='/books/' + val.id)= val.title
+                            td= val.author 
+                            td= val.genre 
+                            td= val.year 

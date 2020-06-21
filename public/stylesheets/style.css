@@ -95,6 +95,13 @@ input[type="text"] {
   width: 300px;
 }
 
+/* ------------------------------------ CUSTOM STYLES ------------------------------------ */
+
+.container {
+  margin: 0 auto;
+  max-width: 80%;
+}
+
 .error {
   color: rgb(236, 15, 15);
 }
@@ -103,10 +110,13 @@ input[type="text"] {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 70%;
   background-color: #299775;
   color: white;
   padding: 18px 10px;
+}
+
+.alertbox {
+  margin: 0 auto;
 }
 
 .alertbox p,
@@ -120,4 +130,19 @@ button {
   border: none;
   color: inherit;
   font-weight: bold;
+}
+
+.top {
+  margin: 0 0 12px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.top input {
+  margin: 0 10px 0 0;
+}
+
+#books-table {
+  width: 100%;
 }
