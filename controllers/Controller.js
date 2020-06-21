@@ -5,6 +5,9 @@ createArgs method, so to make the code more DRY both controllers
 inherit from the base controller
 */
 
+// maps query strings to error and success messages to be sent to views
+const messages = require("../messages.json")
+
 module.exports = class Controller {
   /**
    * Create an args object to be sent to the view

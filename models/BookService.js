@@ -108,9 +108,9 @@ module.exports = class BookService {
    * @return {Object} results
    * @return {Boolean} false on fail
    */
-  async search(query) {
+  async search(query, offset = 1) {
     await Book.sync()
-    const results = await Book.findAll({
+    const results = await Book.findAndCountAll({
       where: {
         [Op.or]: [
           { title: { [Op.like]: `%${query}%` } },

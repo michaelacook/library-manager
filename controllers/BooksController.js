@@ -2,8 +2,6 @@
 const Controller = require("./Controller.js")
 // encapsulates the logic of interacting with the database
 const BookService = new (require("../models/BookService"))()
-// maps query strings to error and success messages to be sent to views
-const messages = require("../messages.json")
 const { Book } = require("../models/index.js")
 
 module.exports = class BooksController extends Controller {
