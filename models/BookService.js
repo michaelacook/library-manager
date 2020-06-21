@@ -44,7 +44,7 @@ module.exports = class BookService {
    * @param {String} title - book title
    * @param {String} author - book author
    * @param {String} genre - book genre
-   * @param  {String} year - year published
+   * @param {String} year - year published
    * @return {Promise}
    */
   async addBook(title, author, genre, year) {

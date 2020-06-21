@@ -1,6 +1,6 @@
 {
   "error": {
-    "missing_data": "Oops! Please fill out all form fields.",
+    "missing_data": "Please fill out all form fields.",
     "general_error": "Something went wrong. Try again later.",
     "does_not_exist": "That book does not exist.",
     "no_results": "No results."

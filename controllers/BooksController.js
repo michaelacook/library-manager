@@ -30,6 +30,9 @@ module.exports = class BooksController extends Controller {
     try {
       const args = this.createArgs(req)
       const currentPage = req.query.page
+      if (!currentPage) {
+        return res.redirect('/books?page=1')
+      }
       const offset = getOffset(currentPage)
       const results = await BookService.allBooks(offset)
       const { count, rows } = results
@@ -63,16 +66,13 @@ module.exports = class BooksController extends Controller {
         res.render("new-book", args)
       } else if (req.method === "POST") {
         const { title, author, genre, year } = req.body
-        if (!title || !year) {
-          return res.redirect("/books/new?error=missing_data")
-        }
-        let url = "/books/?"
+        let url = "/books/?page=1"
         await BookService.addBook(title, author, genre, year)
           .then(() => {
-            url += "success=book_added"
+            url += "&success=book_added"
           })
-          .catch((err) => {
-            url += "error=general_error"
+          .catch(() => {
+            url += "&error=general_error"
           })
         return res.redirect(url)
       }
@@ -104,16 +104,13 @@ module.exports = class BooksController extends Controller {
       } else if (req.method === "POST") {
         const { title, author, genre, year } = req.body
         const id = req.params.id
-        if (!title || !author) {
-          return res.redirect("/books/new?error=missing_data")
-        }
         let url = "/books/" + req.params.id + "?"
         await BookService.updateBook(title, author, genre, year, id)
           .then(() => {
             url += "success=book_updated"
           })
-          .catch(() => {
-            url += "error=general_error"
+          .catch((err) => {
+            url += "error=missing_data"
           })
         res.redirect(url)
       }
@@ -131,13 +128,13 @@ module.exports = class BooksController extends Controller {
   async delete(req, res, next) {
     try {
       const id = req.params.id
-      let url = "/books?"
+      let url = "/books?page=1"
       await BookService.deleteBook(id)
         .then(() => {
-          url += "success=book_deleted"
+          url += "&success=book_deleted"
         })
         .catch(() => {
-          url += "error=general_error"
+          url += "&error=general_error"
         })
       res.redirect(url)
     } catch (err) {
