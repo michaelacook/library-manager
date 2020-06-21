@@ -11,10 +11,12 @@ module.exports = class BookService {
    * Get all book entries in the database
    * @return {Promise}
    */
-  async allBooks() {
+  async allBooks(offset = 1) {
     await Book.sync()
     const results = await Book.findAndCountAll({
       order: [["title", "ASC"]],
+      limit: 12,
+      offset: offset,
     })
     if (results) {
       return results
@@ -119,6 +121,8 @@ module.exports = class BookService {
           { year: { [Op.like]: `%${query}%` } },
         ],
       },
+      limit: 12,
+      offset: offset,
     })
     if (!results) {
       return false

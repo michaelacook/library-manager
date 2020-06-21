@@ -1,0 +1,9 @@
+if pages > 1
+    .pagination 
+        nav
+            - var n = 1
+            while n <= pages 
+                if n==currentPage
+                    a(class="active button" href="" + url + "page=" + n)= n++
+                else 
+                    a(class="button" href="" + url + "page=" + n)= n++

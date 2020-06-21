@@ -1,6 +1,40 @@
 extends layout 
 
 block title 
-    title Results 
+    title Results - #{count} items
 
 block content 
+    book-list
+        h1 Search
+        .top
+            form(method="get" action="/search")
+                input(
+                    type="text"
+                    name="search"
+                    placeholder="Author, title, genre, year"
+                )
+                input(
+                    class="button"
+                    type="submit"
+                    value="Search"
+                )
+
+        
+        if rows
+            h4 Results for "#{searchTerm}":
+            table(id="books-table") 
+                thead 
+                    tr 
+                        th Title 
+                        th Author
+                        th Genre 
+                        th Year 
+                tbody
+                    each val in rows
+                        tr 
+                            td
+                                a(href='/books/' + val.id)= val.title
+                            td= val.author 
+                            td= val.genre 
+                            td= val.year 
+            include pagination.pug

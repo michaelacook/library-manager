@@ -97,6 +97,10 @@ input[type="text"] {
 
 /* ------------------------------------ CUSTOM STYLES ------------------------------------ */
 
+.active {
+  background-color: #1acc93 !important;
+}
+
 .container {
   margin: 0 auto;
   max-width: 80%;
@@ -145,4 +149,19 @@ button {
 
 #books-table {
   width: 100%;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.pagination {
+  margin-top: 15px;
+}
+
+.pagination a {
+  margin-right: 5px;
 }

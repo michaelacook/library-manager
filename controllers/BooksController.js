@@ -2,7 +2,10 @@
 const Controller = require("./Controller.js")
 // encapsulates the logic of interacting with the database
 const BookService = new (require("../models/BookService"))()
-const { Book } = require("../models/index.js")
+// module for calculating pagination offset
+const getOffset = require("../utilities/offset.js")
+// module for calculating number of pages of results
+const getPages = require("../utilities/pages.js")
 
 module.exports = class BooksController extends Controller {
   constructor() {
@@ -15,9 +18,7 @@ module.exports = class BooksController extends Controller {
    * @param {Object} req - HTTP request
    * @param {Object} res - HTTP response
    */
-  home = (req, res) => {
-    return res.redirect("/books")
-  }
+  home = (req, res) => res.redirect("/books?page=1")
 
   /**
    * Render page displaying all books
@@ -28,11 +29,17 @@ module.exports = class BooksController extends Controller {
   async all(req, res, next) {
     try {
       const args = this.createArgs(req)
-      const results = await BookService.allBooks()
+      const currentPage = req.query.page
+      const offset = getOffset(currentPage)
+      const results = await BookService.allBooks(offset)
       const { count, rows } = results
       if (count === 0) {
-        args.message = "Oops! There are currently no records"
+        args.message = "There are currently no records"
       } else {
+        const numberOfPages = getPages(count)
+        args.url = "/books?"
+        args.pages = numberOfPages
+        args.currentPage = currentPage
         args.count = count
         args.rows = rows
       }
