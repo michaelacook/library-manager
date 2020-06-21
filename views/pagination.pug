@@ -1,5 +1,5 @@
-if pages > 1
-    .pagination 
+.pagination 
+    if pages > 1
         nav
             - var n = 1
             while n <= pages 
@@ -7,5 +7,5 @@ if pages > 1
                     a(class="active button" href="" + url + "page=" + n)= n++
                 else 
                     a(class="button" href="" + url + "page=" + n)= n++
-        //- .home 
-        //-     a(class="button" href="/" id="home") Home
+    .home 
+        a(class="button" href="/" id="home") Home

@@ -152,9 +152,9 @@ button {
 }
 
 .pagination {
-  /* display: flex;
+  display: flex;
   flex-direction: row;
-  justify-content: space-between; */
+  justify-content: space-between;
   margin-top: 15px;
 }
 
