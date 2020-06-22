@@ -66,13 +66,13 @@ module.exports = class BooksController extends Controller {
         res.render("new-book", args)
       } else if (req.method === "POST") {
         const { title, author, genre, year } = req.body
-        let url = "/books/?page=1"
+        let url = "/books/new?"
         await BookService.addBook(title, author, genre, year)
           .then(() => {
-            url += "&success=book_added"
+            url += "success=book_added"
           })
-          .catch(() => {
-            url += "&error=general_error"
+          .catch((err) => {
+            url += "error=missing_data"
           })
         return res.redirect(url)
       }
