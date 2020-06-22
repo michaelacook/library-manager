@@ -99,7 +99,7 @@ module.exports = class BooksController extends Controller {
           args.book = book
           res.render("update-book", args)
         } else {
-          res.redirect("/books?error=does_not_exist")
+          res.redirect("/books?page=1&error=does_not_exist")
         }
       } else if (req.method === "POST") {
         const { title, author, genre, year } = req.body
